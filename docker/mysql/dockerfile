@@ -1,0 +1,24 @@
+FROM mysql:8
+
+ARG USER_ID
+ARG USER_NAME
+ARG GROUP_ID
+ARG GROUP_NAME
+ARG MYSQL_ROOT_PASSWORD
+ARG MYSQL_USER
+ARG MYSQL_PASSWORD
+ARG MYSQL_DATABASE
+
+ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+ENV MYSQL_USER=${MYSQL_USER}
+ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
+ENV MYSQL_DATABASE=${MYSQL_DATABASE}
+
+COPY ./dumpdb.sh /dumpdb
+
+RUN chmod +x /dumpdb
+RUN groupadd --system --gid ${GROUP_ID} ${GROUP_NAME} && \
+    useradd --system --shell /bin/bash --uid ${USER_ID} --gid ${GROUP_ID} ${USER_NAME} && \
+    chown ${USER_ID}:${GROUP_ID} /docker-entrypoint-initdb.d
+
+USER ${USER_ID}:${GROUP_ID}

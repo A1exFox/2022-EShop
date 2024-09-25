@@ -1,0 +1,42 @@
+FROM php:8-apache
+
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y \
+    curl \
+    git \
+    zip \
+    unzip && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pecl channel-update pecl.php.net && \
+    pecl install xdebug
+
+RUN docker-php-ext-install \
+    pdo \
+    pdo_mysql \
+    mysqli
+
+RUN docker-php-ext-enable \
+    xdebug
+
+ARG USER_ID
+ARG USER_NAME
+ARG GROUP_ID
+ARG GROUP_NAME
+ARG COMPOSER_CACHE_DIR
+
+ENV APACHE_RUN_USER=${USER_NAME}
+ENV APACHE_RUN_GROUP=${GROUP_NAME}
+ENV COMPOSER_CACHE_DIR=${COMPOSER_CACHE_DIR}
+
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
+COPY ./config/. $PHP_INI_DIR/
+
+RUN groupadd --system --gid ${GROUP_ID} ${GROUP_NAME} && \
+    useradd --system --shell /bin/bash --uid ${USER_ID} --gid ${GROUP_ID} ${USER_NAME} && \
+    mkdir ${COMPOSER_CACHE_DIR} && \
+    chown --recursive ${USER_ID}:${GROUP_ID} /var/www
+
+RUN a2enmod rewrite
+
+USER ${USER_ID}:${GROUP_ID}

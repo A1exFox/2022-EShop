@@ -1,0 +1,58 @@
+services:
+  php_apache:
+    container_name: php_apache
+    image: php_apache
+    build:
+      context: ./docker/php_apache
+      args:
+        - USER_ID=${USER_ID}
+        - USER_NAME=${USER_NAME}
+        - GROUP_ID=${GROUP_ID}
+        - GROUP_NAME=${GROUP_NAME}
+        - COMPOSER_CACHE_DIR=${COMPOSER_CACHE_DIR}
+    ports:
+      - 80:80
+    environment:
+      PHP_IDE_CONFIG: serverName=${SERVER_NAME}
+    volumes:
+      - ./www:/var/www/html
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    networks:
+      - localnet
+    depends_on:
+      - mysql
+  mysql:
+    container_name: mysql
+    image: mysql_db
+    build:
+      context: ./docker/mysql
+      args:
+        - USER_ID=${USER_ID}
+        - USER_NAME=${USER_NAME}
+        - GROUP_ID=${GROUP_ID}
+        - GROUP_NAME=${GROUP_NAME}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+    volumes:
+      - ./docker/db:/docker-entrypoint-initdb.d
+    networks:
+      - localnet
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mysql
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    networks:
+      - localnet
+    depends_on:
+      - mysql
+networks:
+  localnet:
+    name: localnet
+    driver: bridge
