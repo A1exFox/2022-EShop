@@ -2,4 +2,4 @@
 .vscode
 www/composer.lock
 www/vendor/*
-!www/vendor/userDir
+!www/vendor/wfm
