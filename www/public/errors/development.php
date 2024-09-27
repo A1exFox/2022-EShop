@@ -18,9 +18,9 @@
 </head>
 <body>
 <h1>Error</h1>
-<p>Code: <b><?= $errno ?></b></p>
-<p>Message: <b><?= $errstr ?></b></p>
-<p>File: <b><?= $errfile ?></b></p>
-<p>Line: <b><?= $errline ?></b></p>
+<p>Code: <?= $errno ?></p>
+<p>Message: <?= $errstr ?></p>
+<p>File: <?= $errfile ?></p>
+<p>Line: <?= $errline ?></p>
 </body>
 </html>
