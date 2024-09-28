@@ -22,7 +22,6 @@ class Router
     {
         if ($url) {
             $params = explode('&', $url, 2);
-//            debug($params);
             if (str_contains($params[0], '=') === false)
                 return rtrim($params[0], '/');
         }
@@ -31,14 +30,15 @@ class Router
     public static function dispatch($url)
     {
         $url = self::removeQueryString($url);
-        debug($url);
         if (self::matchRoute($url)) {
             $controller = 'app\controllers\\' .
                 self::$route['admin_prefix'] .
                 self::$route['controller'] .
                 'Controller';
             if (class_exists($controller)) {
+                /** @var Controller $controllerObject */
                 $controllerObject = new $controller(self::$route);
+                $controllerObject->getModel();
                 $action = self::lowerCamelCase(self::$route['action']) . 'Action';
                     if (method_exists($controllerObject, $action)) {
                         $controllerObject->$action();
