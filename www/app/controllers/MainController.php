@@ -8,8 +8,7 @@ class MainController extends Controller
 {
     public function indexAction()
     {
-//        $this->layout = 'test';
-//        $this->view = 'testView';
+        $this->setMeta('Index page', 'Description index page', 'Keywords index page');
     }
 }
 
