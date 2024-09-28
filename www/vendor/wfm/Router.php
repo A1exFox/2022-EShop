@@ -42,6 +42,7 @@ class Router
                 $action = self::lowerCamelCase(self::$route['action']) . 'Action';
                     if (method_exists($controllerObject, $action)) {
                         $controllerObject->$action();
+                        $controllerObject->getView();
                     } else {
                         throw new \Exception("Method: <b>{$action}</b> inside <b>{$controller}</b> is not found");
                     }
