@@ -5,5 +5,7 @@
             "app\\": "app"
         }
     },
-    "require": {}
+    "require": {
+        "gabordemooij/redbean": "v5.7.4"
+    }
 }
