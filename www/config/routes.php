@@ -7,5 +7,5 @@ Router::add('^admin/(?P<controller>[a-z-]+)/?(?P<action>[a-z-]+)?$', ['admin_pre
 
 Router::add('^(?P<lang>[a-z]+)?/?product/(?P<slug>[a-z0-9-]+)/?$', ['controller' => 'Product', 'action' => 'view']);
 
-Router::add('^$', ['controller' => 'Main']);
+Router::add('^(?P<lang>[a-z]+)?/?$', ['controller' => 'Main']);
 Router::add('^(?P<controller>[a-z-]+)/(?<action>[a-z-]+)/?$');
