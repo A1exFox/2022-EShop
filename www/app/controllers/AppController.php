@@ -16,6 +16,9 @@ class AppController extends Controller
         $langs = Language::getLanguages();
         App::$app->setProperty('languages', $langs);
         App::$app->setProperty('language', Language::getLanguage($langs));
+
+        $lang = App::$app->getProperty('language');
+        \wfm\Language::load($lang['code'], $route);
     }
 }
 
