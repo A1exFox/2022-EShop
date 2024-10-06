@@ -15,7 +15,7 @@ class Main extends AppModel
             "AND p.hit = 1 " .
             "AND pd.language_id = ? " .
             "LIMIT $limit";
-        return R::getAll($sql, [$lang]);
+        return R::getAll($sql, [$lang['id']]);
     }
 }
 

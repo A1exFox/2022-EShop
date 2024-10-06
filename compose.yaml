@@ -38,6 +38,8 @@ services:
         - MYSQL_DATABASE=${MYSQL_DATABASE}
     volumes:
       - ./docker/db:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
     networks:
       - localnet
   phpmyadmin:
