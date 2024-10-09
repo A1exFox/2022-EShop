@@ -13,10 +13,6 @@ class MainController extends AppController
 {
     public function indexAction()
     {
-//        $test = 'Hello2';
-//        $cache = Cache::getInstance();
-//        $cache->set('test', $test, 30);
-//        debug($cache->get('test'), true);
         $lang = App::$app->getProperty('language');
         $slides = R::findAll('slider');
         $products = $this->model->get_hits($lang, 6);
