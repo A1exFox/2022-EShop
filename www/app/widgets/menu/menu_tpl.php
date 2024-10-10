@@ -1,18 +1,17 @@
-<?php
-/**
- * @var $category array
- * @var $tab string
- * @var $id int
- * @var $isChild bool
- */
-?>
-<li class="nav-item <?php if ($isChild) echo 'dropdown' ?>">
-    <a class="nav-link <?php if ($isChild) echo 'dropdown-toggle' ?>"
-       href="category/<?= $category['slug'] ?>"
-        <?php if ($isChild) echo 'data-bs-toggle="dropdown"' ?>><?= $category['title'] ?></a>
-    <?php if($isChild): ?>
+<?php /** @var $category array */ ?>
+<?php if (isset($category['children'])): ?>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle"
+           href="category/<?= $category['slug'] ?>"
+           data-bs-toggle="dropdown"><?= $category['title'] ?></a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <?= $this->getMenuHtml($category['children']) ?>
         </ul>
-    <?php endif; ?>
-</li>
+    </li>
+<?php else: ?>
+    <li class="nav-item">
+        <a class="nav-link" href="category/<?= $category['slug'] ?>">
+            <?= $category['title'] ?>
+        </a>
+    </li>
+<?php endif; ?>

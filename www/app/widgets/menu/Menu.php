@@ -91,7 +91,6 @@ class Menu
     protected function catToTemplate($category, $tab, $id)
     {
         ob_start();
-        $isChild = isset($category['children']);
         require $this->tpl;
         return ob_get_clean();
     }
