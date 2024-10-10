@@ -15,9 +15,27 @@ class CartController extends AppController
         $qty = get('qty');
         if (!$id)
             return false;
-
         $product = $this->model->get_product($id, $lang);
-        debug($product);
-        die;
+        if (!$product)
+            return false;
+
+        $this->model->add_to_cart($product, $qty);
+
+        if ($this->isAjax()) {
+            debug($_SESSION);
+            die;
+        }
+        redirect();
+        return true;
     }
 }
+
+
+
+
+
+
+
+
+
+

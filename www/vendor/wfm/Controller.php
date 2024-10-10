@@ -38,6 +38,14 @@ abstract class Controller
             'keywords' => $keywords
         ];
     }
+    public function isAjax()
+    {
+        if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']))
+            return false;
+        if ($_SERVER['HTTP_X_REQUESTED_WITH'] !== 'XMLHttpRequest')
+            return false;
+        return true;
+    }
 }
 
 
