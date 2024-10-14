@@ -46,6 +46,14 @@ abstract class Controller
             return false;
         return true;
     }
+
+    public function loadView($view, $vars = [])
+    {
+        extract($vars);
+        $prefix = str_replace('\\', '/', $this->route['admin_prefix']);
+        require APP . "/views/{$prefix}{$this->route['controller']}/{$view}.php";
+        die;
+    }
 }
 
 
