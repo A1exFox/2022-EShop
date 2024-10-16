@@ -328,7 +328,6 @@ li a.dropdown-item:focus, li a.dropdown-item:hover {
 .service-item::before {
     border-bottom: 1px solid #ec4835;
     border-left: 1px solid #ec4835;
-    -webkit-transform-origin: 0 100%;
 }
 
 .service-item::after {
