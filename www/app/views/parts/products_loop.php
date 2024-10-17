@@ -18,7 +18,7 @@
                     <div class="product-links">
                         <a class="add-to-cart"
                            href="cart/add?id=<?= $product['id'] ?>"
-                           data-id="<?= $product['id'] ?>"><i class="fas fa-shopping-cart"></i></a>
+                           data-id="<?= $product['id'] ?>"><?= get_cart_icon($product['id']) ?></a>
                         <a href="#"><i class="far fa-heart"></i></a>
                     </div>
                 </div>
