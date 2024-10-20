@@ -181,6 +181,31 @@ INSERT INTO `product_description` VALUES (1,1,'Canon EOS 5D','<p>Сайт рыб
 UNLOCK TABLES;
 
 --
+-- Table structure for table `product_gallery`
+--
+
+DROP TABLE IF EXISTS `product_gallery`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_gallery` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int unsigned NOT NULL,
+  `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_gallery`
+--
+
+LOCK TABLES `product_gallery` WRITE;
+/*!40000 ALTER TABLE `product_gallery` DISABLE KEYS */;
+INSERT INTO `product_gallery` VALUES (1,2,'/public/uploads/images/1.jpg'),(2,2,'/public/uploads/images/2.jpg');
+/*!40000 ALTER TABLE `product_gallery` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `slider`
 --
 
@@ -213,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-03 17:13:07
+-- Dump completed on 2024-10-20 15:05:35

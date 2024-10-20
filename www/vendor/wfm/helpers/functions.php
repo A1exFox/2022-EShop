@@ -9,6 +9,8 @@ function debug($data, $die = false)
 
 function h($str)
 {
+    if (!$str)
+        return '';
     return htmlspecialchars($str);
 }
 
