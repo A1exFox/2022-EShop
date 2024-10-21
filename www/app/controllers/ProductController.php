@@ -12,8 +12,11 @@ class ProductController extends AppController
         $lang = App::$app->getProperty('language');
         $product = $this->model->get_product($this->route['slug'], $lang);
         
-        if (!$product)
-            throw new Exception("Товар по запросу <b>{$this->route['slug']}</b> не найден");
+        if (!$product) {
+            $this->error_404();
+            // throw new Exception("Товар по запросу <b>{$this->route['slug']}</b> не найден");
+            return;
+        }
 
 
         $breadcrumbs = Breadcrumbs::getBreadcrumbs($product['category_id'], $product['title']);
