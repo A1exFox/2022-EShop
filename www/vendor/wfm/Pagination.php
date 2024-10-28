@@ -31,7 +31,7 @@ class Pagination
         $page1right = null;
 
         if ($this->currentPage > 1)
-            $back = "<li class=\"page-item\"><a class=\"page-link\" href=\"". $this->getLink($this->currentPage - 1) ."\">&lt;</a></li>";
+            $back = "<li class=\"page-item\"><a class=\"page-link\" href=\"". $this->getLink($this->currentPage - 1) ."\">&lt</a></li>";
 
         if ($this->currentPage < $this->countPages)
             $forward = "<li class=\"page-item\"><a class=\"page-link\" href=\"". $this->getLink($this->currentPage + 1) ."\">&gt;</a></li>";
@@ -39,7 +39,7 @@ class Pagination
         if ($this->currentPage > 3)
             $startpage = "<li class=\"page-item\"><a class=\"page-link\" href=\"". $this->getLink(1) ."\">&laquo;</a></li>";
 
-        if ($this->currentPage < ($this->countPage - 2))
+        if ($this->currentPage < ($this->countPages - 2))
             $endpage = "<li class=\"page-item\"><a class=\"page-link\" href=\"". $this->getLink($this->countPages) ."\">&raquo;</a></li>";
 
         if ($this->currentPage - 2 > 0)
@@ -51,11 +51,11 @@ class Pagination
         if ($this->currentPage + 2 <= $this->countPages)
             $page2right = "<li class=\"page-item\"><a class=\"page-link\" href=\"". $this->getLink($this->currentPage + 2) ."\">". ($this->currentPage + 2) ."</a></li>";
 
-        if ($this->currentPage + 1 > $this->countPages)
+        if ($this->currentPage + 1 <= $this->countPages)
             $page1right = "<li class=\"page-item\"><a class=\"page-link\" href=\"". $this->getLink($this->currentPage + 1) ."\">". ($this->currentPage + 1) ."</a></li>";
 
         $html = "
-            <nav aria-label="Page navigation example">
+            <nav aria-label=\"Page navigation example\">
                 <ul class=\"pagination\">
                     $startpage
                     $back
@@ -63,7 +63,7 @@ class Pagination
                     $page1left
                     <li class=\"page-item active\">
                         <a class=\"page-link\">
-                            $this->currentPage;
+                            $this->currentPage
                         </a>
                     </li>
                     $page1right
