@@ -1,5 +1,9 @@
 $(function () {
 
+    $('#input-sort').on('change', function () {
+        window.location = PATH + window.location.pathname + '?' + $(this).val();
+    })
+
     // CART
 
     function showCart(cart) {
