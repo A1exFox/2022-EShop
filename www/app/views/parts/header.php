@@ -45,7 +45,7 @@ use wfm\View;
                         </span>
                     </a>
 
-                    <a href="#"><i class="far fa-heart"></i></a>
+                    <a href="wishlist"><i class="far fa-heart"></i></a>
 
                     <div class="dropdown d-inline-block">
                         <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
