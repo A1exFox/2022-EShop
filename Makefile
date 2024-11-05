@@ -15,3 +15,5 @@ down:
 remove:
 	$(REMOVE)
 	
+dump:
+	docker exec -it mysql /dumpdb
