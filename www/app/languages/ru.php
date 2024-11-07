@@ -1,4 +1,5 @@
 <?php
+
 return [
     'tpl_information' => 'Информация',
     'tpl_work_hours' => 'Время работы',
