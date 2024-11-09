@@ -2,6 +2,8 @@
 
 namespace wfm;
 
+use Valitron\Validator;
+
 abstract class Model
 {
     public array $attributes = [];
@@ -19,5 +21,29 @@ abstract class Model
         foreach($this->attributes as $name => $value)
             if (isset($data[$name]))
                 $this->attributes[$name] = $data[$name];
+    }
+
+    public function validate($data):bool
+    {
+        Validator::langDir(APP . '/languages/validator/lang');
+        Validator::lang('ru');
+        $validator = new Validator($data);
+        $validator->rules($this->rules);
+        $validator->labels($this->getLabels());
+        if ($validator->validate()) {
+            return true;
+        } else {
+            $this->errors = $validator->errors();
+            return false;
+        }
+    }
+
+    public function getLabels(): array
+    {
+        $labels = [];
+        foreach ($this->labels as $k => $v) {
+            $labels[$k] = ___($v);
+        }
+        return $labels;
     }
 }

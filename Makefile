@@ -17,3 +17,6 @@ remove:
 	
 dump:
 	docker exec -it mysql /dumpdb
+
+bash:
+	docker exec -it php_apache /bin/bash
