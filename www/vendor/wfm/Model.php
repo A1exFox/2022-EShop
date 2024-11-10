@@ -3,6 +3,7 @@
 namespace wfm;
 
 use Valitron\Validator;
+use RedBeanPHP\R;
 
 abstract class Model
 {
@@ -45,5 +46,25 @@ abstract class Model
             $labels[$k] = ___($v);
         }
         return $labels;
+    }
+
+    public function save($table): int|string
+    {
+        $tbl = R::dispense($table);
+        foreach($this->attributes as $name => $value) {
+            if ($value != '')
+                $tbl->$name = $value;
+        }
+        return R::store($tbl);
+    }
+
+    public function checkUnique($text_error = ''): bool
+    {
+        $user = R::findOne('user', 'email = ?', [$this->attributes['email']]);
+        if ($user) {
+            $this->errors['unique'][] = $text_error ?: ___('user_signup_error_email_unique');
+            return false;
+        }
+        return true;
     }
 }
