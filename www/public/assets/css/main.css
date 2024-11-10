@@ -13,6 +13,12 @@ body {
     padding-top: 130px;
 }
 
+label.required::before {
+    content: "* ";
+    color: red;
+    font-weight: bold;
+}
+
 img {
     max-width: 100%;
     height: auto;

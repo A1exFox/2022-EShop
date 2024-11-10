@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use RedBeanPHP\R;
+
 class User extends AppModel
 {
 
@@ -43,6 +45,31 @@ class User extends AppModel
         }
         $errors .= '</ul>';
         $_SESSION['errors'] = $errors;
+    }
+
+    public function login($is_admin = false): bool
+    {
+        $email = post('email');
+        $password = post('password');
+
+        if ($email && $password) {
+            if ($is_admin) {
+                $user = R::findOne('user', "email = ? AND role = 'admin'", [$email]);
+            } else {
+                $user = R::findOne('user', "email = ?", [$email]);
+            }
+
+            if ($user) {
+                if (password_verify($password, $user->password)) {
+                    foreach ($user as $k => $v) {
+                        if ($k != 'password')
+                            $_SESSION['user'][$k] = $v;
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
 }
