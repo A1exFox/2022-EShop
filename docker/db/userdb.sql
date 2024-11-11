@@ -70,6 +70,56 @@ INSERT INTO `category_description` VALUES (1,1,'Компьютеры',NULL,NULL,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `download`
+--
+
+DROP TABLE IF EXISTS `download`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `download` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `filename` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `original_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `download`
+--
+
+LOCK TABLES `download` WRITE;
+/*!40000 ALTER TABLE `download` DISABLE KEYS */;
+INSERT INTO `download` VALUES (1,'price.zip.RNv58WWAW1mF6ly3gTPiq4gHA00tQQ2B','price.zip'),(2,'test.txt.fdkrwrcsflytryz23423cf','test.txt'),(5,'100.jpg615487b659028','100.jpg');
+/*!40000 ALTER TABLE `download` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `download_description`
+--
+
+DROP TABLE IF EXISTS `download_description`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `download_description` (
+  `download_id` int unsigned NOT NULL,
+  `language_id` int unsigned NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`download_id`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `download_description`
+--
+
+LOCK TABLES `download_description` WRITE;
+/*!40000 ALTER TABLE `download_description` DISABLE KEYS */;
+INSERT INTO `download_description` VALUES (1,1,'Файл 1'),(1,2,'File 1'),(2,1,'Файл 2'),(2,2,'File 2'),(5,1,'Картинка'),(5,2,'Picture');
+/*!40000 ALTER TABLE `download_description` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `language`
 --
 
@@ -117,6 +167,91 @@ LOCK TABLES `name` WRITE;
 /*!40000 ALTER TABLE `name` DISABLE KEYS */;
 INSERT INTO `name` VALUES (1,'Иванов'),(2,'Петров');
 /*!40000 ALTER TABLE `name` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order_download`
+--
+
+DROP TABLE IF EXISTS `order_download`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_download` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` int unsigned NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  `product_id` int unsigned NOT NULL,
+  `download_id` int unsigned NOT NULL,
+  `status` tinyint unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_download`
+--
+
+LOCK TABLES `order_download` WRITE;
+/*!40000 ALTER TABLE `order_download` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_download` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `order_product`
+--
+
+DROP TABLE IF EXISTS `order_product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `order_product` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` int unsigned NOT NULL,
+  `product_id` int unsigned NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `qty` int unsigned NOT NULL,
+  `price` double NOT NULL,
+  `sum` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `order_product`
+--
+
+LOCK TABLES `order_product` WRITE;
+/*!40000 ALTER TABLE `order_product` DISABLE KEYS */;
+/*!40000 ALTER TABLE `order_product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orders` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '0',
+  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `total` double NOT NULL,
+  `qty` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orders`
+--
+
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -319,4 +454,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-10 11:35:32
+-- Dump completed on 2024-11-11  4:50:52

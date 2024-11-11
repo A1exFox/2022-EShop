@@ -24,6 +24,10 @@ img {
     height: auto;
 }
 
+.preview-product {
+    max-height: 100px;
+}
+
 a {
     text-decoration: none;
     color: #ee6e73;

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Cart;
 use wfm\App;
+use app\models\User;
 
 /** @property Cart $model */
 class CartController extends AppController
@@ -54,6 +55,37 @@ class CartController extends AppController
         unset($_SESSION['cart.sum']);
         $this->loadView('cart_modal');
         return true;
+    }
+
+    public function viewAction()
+    {
+        $this->setMeta(___('tpl_cart_title'));
+    }
+
+    public function checkoutAction()
+    {
+        if (!empty($_POST)) {
+            if (!User::checkAuth()) {
+                $user = new User();
+                $data = $_POST;
+                $user->load($data);
+                if (!$user->validate($data) || !$user->checkUnique()) {
+                    $user->getErrors();
+                    $_SESSION['form_data'] = $data;
+                    redirect();
+                } else {
+                    $pass = $user->attributes['password'];
+                    $user->attributes['password'] = password_hash($pass, PASSWORD_DEFAULT);
+                    if (!$user_id = $user->save('user')) {
+                        $_SESSION['errors'] = ___('cart_checkout_error_register');
+                        redirect();
+                    } else {
+
+                    }
+                }
+            }
+        }
+        redirect();
     }
 }
 
