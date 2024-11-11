@@ -242,7 +242,7 @@ CREATE TABLE `orders` (
   `total` double NOT NULL,
   `qty` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,6 +251,7 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (1,2,0,'Test note','2024-11-11 07:39:55','2024-11-11 07:39:55',40,3);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -368,6 +369,30 @@ INSERT INTO `product_description` VALUES (1,1,'Canon EOS 5D','<p>Сайт рыб
 UNLOCK TABLES;
 
 --
+-- Table structure for table `product_download`
+--
+
+DROP TABLE IF EXISTS `product_download`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_download` (
+  `product_id` int unsigned NOT NULL,
+  `download_id` int unsigned NOT NULL,
+  PRIMARY KEY (`product_id`,`download_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_download`
+--
+
+LOCK TABLES `product_download` WRITE;
+/*!40000 ALTER TABLE `product_download` DISABLE KEYS */;
+INSERT INTO `product_download` VALUES (5,1),(6,2);
+/*!40000 ALTER TABLE `product_download` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `product_gallery`
 --
 
@@ -432,7 +457,7 @@ CREATE TABLE `user` (
   `role` enum('user','admin') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -441,7 +466,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (2,'email1@email.com','$2y$10$NT3QhLwpOjYACn2t6rJYtezKzL9L5NzNCFXzjZSJuV8F0HbBL17UC','MyName1','MyAddr1','user'),(4,'email2@email.com','$2y$10$bL3Ym8ZMDjW4aZJG0BrU7e7drk5GG3sFwqx0oIQ46Db.Tvf/9lglK','name2','addr2','user');
+INSERT INTO `user` VALUES (2,'email1@email.com','$2y$10$NT3QhLwpOjYACn2t6rJYtezKzL9L5NzNCFXzjZSJuV8F0HbBL17UC','MyName1','MyAddr1','user'),(4,'email2@email.com','$2y$10$bL3Ym8ZMDjW4aZJG0BrU7e7drk5GG3sFwqx0oIQ46Db.Tvf/9lglK','name2','addr2','user'),(5,'4@email.com','$2y$10$UvlG9OEMYCGaWDcJBUW0UOQy9CNq.ay.u9shfUQhuuErQucIQ50gq','myname4','myaddr4','user');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -454,4 +479,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-11  4:50:52
+-- Dump completed on 2024-11-11  7:42:14
